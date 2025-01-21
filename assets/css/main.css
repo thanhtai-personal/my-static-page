@@ -11,6 +11,13 @@
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
 /* Fonts */
+@font-face {
+  font-family: Caveat;
+  src: url('../fonts/Caveat-Bold.ttf'); /* IE9 Compat Modes */
+  src: url('../fonts/Caveat-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Raleway",  sans-serif;
