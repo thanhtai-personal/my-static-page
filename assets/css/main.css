@@ -1313,6 +1313,7 @@ section,
   max-width: unset !important;
   height: 40vw;
   background: rgba(4, 162, 241, 0.1);
+  background-image: linear-gradient(to right, #175aed22 , #f7510444);
   transform: rotate(-33deg) translateY(-32vw);
   border-width: 3px;
   border-style: solid;
