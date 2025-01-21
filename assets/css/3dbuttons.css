@@ -11,6 +11,15 @@
   }
 }
 
+:root {
+  --button-width: 180px;
+  --button-height: 24px;
+  --side-height: 30px;
+  --item-height: 70px;
+  --shadow-width: 5px;
+  --shadow-width-2: 5px;
+}
+
 .buttons-3d {
   position: absolute;
   top: 0;
@@ -23,9 +32,12 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   -moz-backdrop-filter: blur(4px);
-  box-shadow: 0px 5px 10px 0px #f7510499;
-  -webkit-box-shadow: 0px 5px 10px 0px #f7510499;
-  -moz-box-shadow: 0px 5px 10px 0px #f7510499;
+  box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  -webkit-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  -moz-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  animation: running_shadow2 2s infinite forwards;
+  -webkit-animation: running_shadow2 2s infinite forwards;
+  -moz-animation: running_shadow2 2s infinite forwards;
 }
 
 #hero {
@@ -47,9 +59,92 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   -moz-backdrop-filter: blur(4px);
-  box-shadow: 40px 0px 10px 0px #175aed99;
-  -webkit-box-shadow: 40px 0px 10px 0px #175aed99;
-  -moz-box-shadow: 40px 0px 10px 0px #175aed99;
+  box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  -webkit-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  -moz-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  animation: running_shadow 2s infinite forwards;
+  -webkit-animation: running_shadow 2s infinite forwards;
+  -moz-animation: running_shadow 2s infinite forwards;
+}
+
+@keyframes running_shadow {
+  0%, 100% {
+    box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -moz-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  }
+  50% {
+    box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -moz-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+  }
+}
+
+@-moz-keyframes running_shadow {
+  0%, 100% {
+    box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -moz-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  }
+  50% {
+    box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -moz-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+  }
+}
+
+@-webkit-keyframes running_shadow {
+  0%, 100% {
+    box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+    -moz-box-shadow: calc(2 * var(--shadow-width)) 0px 10px 0px #175aed99;
+  }
+  50% {
+    box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -webkit-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+    -moz-box-shadow: var(--shadow-width) 0px 10px 0px #175aed99;
+  }
+}
+
+
+
+@keyframes running_shadow2 {
+  0%, 100% {
+    box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -moz-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  }
+  50% {
+    box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -moz-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+  }
+}
+
+@-moz-keyframes running_shadow2 {
+  0%, 100% {
+    box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -moz-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  }
+  50% {
+    box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -moz-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+  }
+}
+
+@-webkit-keyframes running_shadow2 {
+  0%, 100% {
+    box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+    -moz-box-shadow: 0px var(--shadow-width-2) 10px 0px #f7510499;
+  }
+  50% {
+    box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -webkit-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+    -moz-box-shadow: 0px calc(3 * var(--shadow-width-2)) 10px 0px #f7510499;
+  }
 }
 
 
@@ -58,13 +153,6 @@
   font-weight: 800;
   font-size: 18px;
   white-space: no-wrap;
-}
-
-:root {
-  --button-width: 180px;
-  --button-height: 24px;
-  --side-height: 30px;
-  --item-height: 70px;
 }
 
 .buttons-3d-container  .container {
