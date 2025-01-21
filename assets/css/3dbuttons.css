@@ -9,6 +9,10 @@
     position: relative;
     display: none;
   }
+
+  .banner-content {
+    display: none;
+  }
 }
 
 :root {
@@ -25,7 +29,7 @@
   top: 0;
   right: 0;
   z-index: 999;
-  background-color: #00000099;
+  background-color: #11000099;
   border-bottom-left-radius: 100%;
   padding-left: 120px;
   padding-bottom: 90px;
@@ -47,7 +51,7 @@
 }
 
 .name-container {
-  background-color: #00000099;
+  background-color: #00002299;
   border-top-right-radius: 100%;
   width: fit-content;
   position: absolute !important;
@@ -56,6 +60,7 @@
   padding: 16px;
   padding-right: 100px;
   padding-top: 90px;
+  z-index: 999 !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   -moz-backdrop-filter: blur(4px);
