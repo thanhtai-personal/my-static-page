@@ -247,3 +247,9 @@ function handleExpand(id, height) {
     }
   }
 }
+
+// discover more
+function showButtons() {
+  const hiddenButtons = document.getElementById('hiddenButtons');
+  hiddenButtons.classList.add('active');
+}
