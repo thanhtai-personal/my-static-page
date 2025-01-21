@@ -256,7 +256,7 @@ function showButtons() {
 
 function matrix() {
   const rows = 30; // Number of rows
-  const columns = 300;    // Number of columns
+  const columns = 300; // Number of columns
   const matrix = document.getElementById('matrix');
 
   // Generate rows
@@ -264,15 +264,15 @@ function matrix() {
     const row = document.createElement('div');
     row.classList.add('m-row');
 
-    // Generate columns of numbers
+    // Generate a string of random numbers for the row
+    let rowContent = '';
     for (let j = 0; j < columns; j++) {
-      const number = document.createElement('div');
-      number.classList.add('number');
-      number.textContent = Math.floor(Math.random() * 2); // Random number 0-9
-      number.style.animationDuration = `${Math.random() * 2 + 1}s`;
-      number.style.animationDelay = `${Math.random() * 5}s`;
-      row.appendChild(number);
+      rowContent += Math.floor(Math.random() * 2); // Random number 0 or 1
     }
+
+    row.textContent = rowContent;
+    row.style.animationDuration = `${Math.random() * 2 + 10}s`;
+    row.style.animationDelay = `${Math.random() * 5}s`;
     matrix.appendChild(row);
   }
 }

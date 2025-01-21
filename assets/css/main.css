@@ -1330,39 +1330,21 @@ section,
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   overflow: hidden;
+  color: lime;
+  font-family: monospace;
 }
 
 .matrix .m-row {
+  opacity: 0;
   white-space: nowrap;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+  animation: scroll-text linear infinite;
 }
 
-.matrix .number {
-  opacity: 0;
-  animation: fade-in-out linear infinite;
-  -moz-animation: fade-in-out linear infinite;
-  -webkit-animation: fade-in-out linear infinite;
-}
-
-@keyframes fade-in-out {
-  0% { opacity: 0; }
-  50% { opacity: 0.2; }
-  100% { opacity: 0; }
-}
-
-@-moz-keyframes fade-in-out {
-  0% { opacity: 0; }
-  50% { opacity: 0.2; }
-  100% { opacity: 0; }
-}
-
-@-webkit-keyframes fade-in-out {
-  0% { opacity: 0; }
-  50% { opacity: 0.2; }
-  100% { opacity: 0; }
+@keyframes scroll-text {
+  0% { transform: translateX(-100%); opacity: 0.2; }
+  50% { opacity: 0.1; }
+  100% { transform: translateX(0%); opacity: 0; }
 }
