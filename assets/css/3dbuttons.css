@@ -292,6 +292,14 @@
   transition: all .5s ease-in;
 }
 
+.translatey.second:hover, .translatey.third:hover  {
+  -webkit-transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(5px);
+  transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(5px);
+  -webkit-transition: all .5s ease-in;
+  -o-transition: all .5s ease-in;
+  transition: all .5s ease-in;
+}
+
   
 
 .instagram, .in {
