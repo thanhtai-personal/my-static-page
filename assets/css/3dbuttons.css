@@ -18,8 +18,8 @@
 :root {
   --button-width: 180px;
   --button-height: 24px;
-  --side-height: 30px;
-  --item-height: 70px;
+  --side-height: 20px;
+  --item-height: 55px;
   --shadow-width: 5px;
   --shadow-width-2: 5px;
 }
@@ -293,8 +293,8 @@
 }
 
 .translatey.second:hover, .translatey.third:hover  {
-  -webkit-transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(5px);
-  transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(5px);
+  -webkit-transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(-40px);
+  transform: rotateX(-100deg) rotateY(0deg) rotateZ(0deg) translateY(-40px);
   -webkit-transition: all .5s ease-in;
   -o-transition: all .5s ease-in;
   transition: all .5s ease-in;
