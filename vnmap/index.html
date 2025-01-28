@@ -8,77 +8,34 @@
     <!-- Main CSS File -->
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/3dbuttons.css" rel="stylesheet" />
+    <link href="../assets/css/menu.css" rel="stylesheet" />
   </head>
   <body style="margin: 0;overflow: hidden;">
     <div
       class="buttons-3d-container-hor"
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 20px;
-        position: absolute;
-        top: 0;
-        left: 20vw;
-        width: fit-content;
-      "
     >
-      <div class="container last">
-        <div class="button translatey third">
-          <a href="/" class="side instagram">
-            <h1 class="h1">Static HTML</h1></a
-          >
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-        </div>
-      </div>
-      <div class="container mid">
-        <div class="button translatey second active">
-          <a class="side facebook" href="/threejs">
-            <h1 class="h1">3D demos</h1>
-          </a>
-          <div class="side fb"></div>
-          <div class="side fb"></div>
-          <div class="side fb"></div>
-          <div class="side fb"></div>
-          <div class="side fb"></div>
-        </div>
-      </div>
-      <div class="container last">
-        <div class="button translatey third">
-          <a href="/me" class="side instagram"> <h1 class="h1">ReactJS</h1></a>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-        </div>
-      </div>
+    <ul class="top-menu">
+      <li>
+        <a href="/" class="menu-item">
+          <h1 class="h1">Static HTML</h1>
+        </a>
+      </li>
 
-      <div class="container last">
-        <div class="button translatey third">
-          <a href="#" class="side instagram">
-            <h1 class="h1">VN Map</h1></a>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-          <div class="side in"></div>
-        </div>
-      </div>
-      <!-- <div class="container top">
-                <div class="button first"><a class="side codepen">
-                    <h1 class="h1">Static page</h1></a>
-                  <div class="side cd"></div>
-                  <div class="side cd"></div>
-                  <div class="side cd"></div>
-                  <div class="side cd"></div>
-                  <div class="side cd"></div>
-                </div>
-              </div> -->
+      <li>
+        <a href="/threejs" class="menu-item" h>
+          <h1 class="h1">3D demos</h1>
+        </a>
+      </li>
+
+      <li>
+        <a href="/me" class="menu-item"> <h1 class="h1">ReactJS</h1></a>
+      </li>
+
+      <li>
+        <a href="/vnmap" class="menu-item">
+          <h1 class="h1">VN Map</h1></a>
+      </li>
+    </ul>
     </div>
       <iframe
         src="https://vn-historical-map.vercel.app/"

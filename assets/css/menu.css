@@ -1,0 +1,62 @@
+.buttons-3d-container-hor {
+  background-color: #343a40; /* Dark background similar to Bootstrap's navbar */
+  padding: 10px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  width: 100vw;
+  position: absolute;
+}
+
+.top-menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.top-menu li {
+  margin: 0 15px;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.menu-item:hover {
+  background-color: #495057; /* Hover effect similar to Bootstrap */
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.menu-item .h1 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: normal;
+}
+
+
+@media (max-width: 768px) {
+  .buttons-3d-container-hor {
+    flex-direction: column;
+    padding: 15px;
+    display: none !important;
+  }
+
+  .top-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .top-menu li {
+    margin: 10px 0;
+  }
+}
