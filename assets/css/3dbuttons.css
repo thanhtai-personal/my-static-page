@@ -11,7 +11,7 @@
   }
 
   .buttons-3d-container-hor {
-    display: none;
+    display: none !important;
   }
 
   .banner-content {
