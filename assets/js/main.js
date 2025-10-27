@@ -9,6 +9,53 @@
 (function () {
   "use strict";
 
+  const scriptPromises = new Map();
+
+  const loadScript = (src) => {
+    if (!src) {
+      return Promise.resolve();
+    }
+
+    if (scriptPromises.has(src)) {
+      return scriptPromises.get(src);
+    }
+
+    const existingScript = document.querySelector(`script[src="${src}"]`);
+    const promise = new Promise((resolve, reject) => {
+      const handleLoad = (event) => {
+        const target = event && event.target ? event.target : existingScript;
+        if (target) {
+          target.setAttribute('data-loaded', 'true');
+        }
+        resolve();
+      };
+
+      const handleError = () => {
+        reject(new Error(`Failed to load script: ${src}`));
+      };
+
+      if (existingScript) {
+        if (existingScript.getAttribute('data-loaded') === 'true') {
+          resolve();
+        } else {
+          existingScript.addEventListener('load', handleLoad, { once: true });
+          existingScript.addEventListener('error', handleError, { once: true });
+        }
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.addEventListener('load', handleLoad, { once: true });
+      script.addEventListener('error', handleError, { once: true });
+      document.head.appendChild(script);
+    });
+
+    scriptPromises.set(src, promise);
+    return promise;
+  };
+
   /**
    * Header toggle
    */
@@ -128,63 +175,170 @@
   });
 
   /**
-   * Initiate glightbox
-   */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
-
-  /**
-   * Init isotope layout and filters
-   */
-  document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
-    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
-    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
-    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
-
-    let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
-      initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
-        itemSelector: '.isotope-item',
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort
-      });
-    });
-
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
-      filters.addEventListener('click', function () {
-        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
-        this.classList.add('filter-active');
-        initIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        if (typeof aosInit === 'function') {
-          aosInit();
-        }
-      }, false);
-    });
-
-  });
-
-  /**
    * Init swiper sliders
    */
-  function initSwiper() {
+  const initSwiper = () => {
+    if (typeof Swiper === 'undefined') {
+      return;
+    }
+
     document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
 
-      if (swiperElement.classList.contains("swiper-tab")) {
+      if (swiperElement.classList.contains("swiper-tab") && typeof initSwiperWithCustomPagination === 'function') {
         initSwiperWithCustomPagination(swiperElement, config);
       } else {
         new Swiper(swiperElement, config);
       }
     });
-  }
+  };
 
-  window.addEventListener("load", initSwiper);
+  /**
+   * Init isotope layout and filters
+   */
+  const initIsotopeLayouts = () => {
+    if (typeof imagesLoaded !== 'function' || typeof Isotope === 'undefined') {
+      return;
+    }
+
+    document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
+      let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+      let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
+      let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+
+      let initIsotope;
+      imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
+        initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+          itemSelector: '.isotope-item',
+          layoutMode: layout,
+          filter: filter,
+          sortBy: sort
+        });
+      });
+
+      isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
+        filters.addEventListener('click', function () {
+          isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
+          this.classList.add('filter-active');
+          initIsotope.arrange({
+            filter: this.getAttribute('data-filter')
+          });
+          if (typeof aosInit === 'function') {
+            aosInit();
+          }
+        }, false);
+      });
+
+    });
+  };
+
+  /**
+   * Initiate glightbox
+   */
+  const initLightbox = () => {
+    if (typeof GLightbox !== 'function') {
+      return;
+    }
+
+    GLightbox({
+      selector: '.glightbox'
+    });
+  };
+
+  const initPortfolioFeatures = () => {
+    if (initPortfolioFeatures.initialized) {
+      return;
+    }
+
+    initLightbox();
+    initIsotopeLayouts();
+    initSwiper();
+    initPortfolioFeatures.initialized = true;
+  };
+
+  const setupPortfolioEnhancements = () => {
+    const portfolioSection = document.querySelector('#portfolio');
+    const requiresIsotope = document.querySelector('.isotope-layout');
+    const requiresLightbox = document.querySelector('.glightbox');
+    const requiresSwiper = document.querySelector('.init-swiper');
+
+    if (!portfolioSection || (!requiresIsotope && !requiresLightbox && !requiresSwiper)) {
+      return;
+    }
+
+    const scriptLoaders = [];
+
+    if (requiresIsotope) {
+      scriptLoaders.push(loadScript('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js'));
+      scriptLoaders.push(loadScript('assets/vendor/isotope-layout/isotope.pkgd.min.js'));
+    }
+
+    if (requiresLightbox) {
+      scriptLoaders.push(loadScript('assets/vendor/glightbox/js/glightbox.min.js'));
+    }
+
+    if (requiresSwiper) {
+      scriptLoaders.push(loadScript('assets/vendor/swiper/swiper-bundle.min.js'));
+    }
+
+    let requested = false;
+    let handleScroll;
+
+    const activatePortfolio = () => {
+      if (requested) {
+        return;
+      }
+
+      requested = true;
+      if (handleScroll) {
+        window.removeEventListener('scroll', handleScroll);
+      }
+
+      Promise.all(scriptLoaders).then(() => {
+        initPortfolioFeatures();
+      }).catch((error) => {
+        console.error('Failed to load portfolio scripts', error);
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            obs.disconnect();
+            activatePortfolio();
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      observer.observe(portfolioSection);
+    } else {
+      window.addEventListener('load', activatePortfolio, { once: true });
+    }
+
+    handleScroll = () => {
+      if (requested) {
+        window.removeEventListener('scroll', handleScroll);
+        return;
+      }
+
+      const rect = portfolioSection.getBoundingClientRect();
+      if (rect.top - window.innerHeight <= 200) {
+        window.removeEventListener('scroll', handleScroll);
+        activatePortfolio();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    if (window.location.hash && portfolioSection.matches(window.location.hash)) {
+      activatePortfolio();
+    }
+  };
+
+  setupPortfolioEnhancements();
 
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
