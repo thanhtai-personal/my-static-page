@@ -408,26 +408,42 @@ function showButtons() {
   hiddenButtons.classList.add('active');
 }
 
-function matrix() {
-  const rows = 30; // Number of rows
-  const columns = 300; // Number of columns
-  const matrix = document.getElementById('matrix');
+function renderMatrixBackdrop() {
+  const container = document.getElementById('matrix');
 
-  // Generate rows
+  if (!container || container.dataset.initialized === 'true') {
+    return;
+  }
+
+  const rows = 30;
+  const columns = 220;
+  const fragment = document.createDocumentFragment();
+
   for (let i = 0; i < rows; i++) {
     const row = document.createElement('div');
     row.classList.add('m-row');
 
-    // Generate a string of random numbers for the row
-    let rowContent = '';
-    for (let j = 0; j < columns; j++) {
-      rowContent += Math.floor(Math.random() * 2); // Random number 0 or 1
-    }
-
-    row.textContent = rowContent;
-    row.style.animationDuration = `${Math.random() * 2 + 10}s`;
+    const characters = Array.from({ length: columns }, () => Math.floor(Math.random() * 2)).join('');
+    row.textContent = characters;
+    row.style.animationDuration = `${(Math.random() * 2 + 10).toFixed(2)}s`;
     row.style.animationDelay = `${Math.random() * 5}s`;
-    matrix.appendChild(row);
+    fragment.appendChild(row);
   }
+
+  container.appendChild(fragment);
+  container.dataset.initialized = 'true';
 }
-matrix();
+
+const scheduleMatrixRender = () => {
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(renderMatrixBackdrop);
+  } else {
+    requestAnimationFrame(renderMatrixBackdrop);
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', scheduleMatrixRender, { once: true });
+} else {
+  scheduleMatrixRender();
+}
